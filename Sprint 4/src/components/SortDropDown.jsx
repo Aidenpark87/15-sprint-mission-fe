@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import arrowDownIcon from '../assets/icons/ic_arrow_down.svg';
 import sortIcon from '../assets/icons/ic_sort.svg';
-import './SortDropdown.css';
+import './SortDropDown.css';
 
 
 const OPTIONS = [

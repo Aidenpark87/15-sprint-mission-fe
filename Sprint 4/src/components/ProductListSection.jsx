@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import useProducts from '../hooks/useProducts';
 import ProductCard from './ProductCard';
 import SearchBar from './SearchBar';
-import SortDropdown from './SortDropdown';
+import SortDropdown from './SortDropDown';
 import Pagination from './Pagination';
 import './ProductListSection.css';
 

@@ -1,5 +1,5 @@
 import pandaLogo from '../assets/icons/panda-logo.svg';
-import './Navbar.css';
+import './NavBar.css';
 
 export default function Navbar() {
   return (
