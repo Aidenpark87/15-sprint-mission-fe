@@ -245,7 +245,7 @@
     font-size: 22px;
   }
 
-  /* 태블릿/모바일에서는 피처 제목이 한 줄로 나와야 함 (데스크탑에서만 줄바꿈) */
+  
   .landing-feature-row__break {
     display: none;
   }
@@ -275,7 +275,7 @@
 
 
 
-/* 모바일 (시안 기준: 480px 이하) - 태블릿과 같은 스택 구조, 크기만 더 축소 */
+
 @media (max-width: 600px) {
   .landing-hero__inner {
     padding-top: 48px;
