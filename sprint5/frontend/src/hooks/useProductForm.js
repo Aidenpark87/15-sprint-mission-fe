@@ -24,8 +24,8 @@ const VALIDATORS = {
   },
   tag: (value) => {
     if (value.trim() === '') return '';
-    if (value.length >= 5) {
-      return '태그는 4자 이내로 입력해주세요.';
+    if (value.length > 5) {
+      return '태그는 5자 이내로 입력해주세요.';
     }
     return '';
   },
@@ -44,8 +44,8 @@ export default function useProductForm(initialValues = {}) {
 
   const validateField = (name, value) => {
     if (name === 'tags') {
-      return values.tags.some((tag) => tag.length >= 5)
-        ? '태그는 4자 이내로 입력해주세요.'
+      return values.tags.some((tag) => tag.length > 5)
+        ? '태그는 5자 이내로 입력해주세요.'
         : '';
     }
     return VALIDATORS[name] ? VALIDATORS[name](value) : '';
@@ -69,8 +69,8 @@ export default function useProductForm(initialValues = {}) {
 
   const addTag = (tag) => {
     if (tag.trim() === '') return false;
-    if (tag.length >= 5) {
-      setErrors((prev) => ({ ...prev, tags: '태그는 4자 이내로 입력해주세요.' }));
+    if (tag.length > 5) {
+      setErrors((prev) => ({ ...prev, tags: '태그는 5자 이내로 입력해주세요.' }));
       return false;
     }
     if (values.tags.includes(tag)) return false;

@@ -22,11 +22,12 @@ export default function RegistrationPage() {
   const [tagInput, setTagInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Enter를 누르기 전, 입력 중인 글자 수만으로도 바로 빨간 테두리를 보여주기 위한 값
-  const isTagInputTooLong = tagInput.length >= 5;
+  
+  const isTagInputTooLong = tagInput.length > 5;
 
   const handleTagKeyDown = (event) => {
     if (event.key !== 'Enter') return;
+    if (event.nativeEvent.isComposing) return;
     event.preventDefault();
     const added = addTag(tagInput);
     if (added) setTagInput('');
@@ -138,7 +139,7 @@ export default function RegistrationPage() {
             placeholder="태그를 입력 후 Enter를 눌러주세요"
           />
           {isTagInputTooLong && (
-            <span className="registration__error">태그는 4자 이내로 입력해주세요.</span>
+            <span className="registration__error">태그는 5자 이내로 입력해주세요.</span>
           )}
           {!isTagInputTooLong && errors.tags && (
             <span className="registration__error">{errors.tags}</span>
