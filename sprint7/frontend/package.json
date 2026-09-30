@@ -1,0 +1,23 @@
+{
+  "name": "mission7-router",
+
+  "private": true,
+  "scripts": { 
+    "dev": "next dev", 
+    "build": "next build",
+     "start": "next start",
+      "lint": "eslint",
+       "format": "prettier --write ."  },
+
+  "dependencies": { "next": "16.3.7", "react": "19.3.0", "react-dom": "19.3.0", "@vanilla-extract/css": "1.21.2" },
+  "devDependencies": { 
+    "@vanilla-extract/next-plugin": "2.5.2", 
+  "eslint": "10.11.0", 
+  "eslint-config-next": "16.3.7", 
+  "eslint-config-prettier": "10.1.8", 
+  "prettier": "3.9.9",
+  "babel-plugin-react-compiler": "1.0.0"
+},
+  "engines": { "node": ">=24" },
+  "packageManager": "pnpm@11.24.0"
+  }
