@@ -1,12 +1,15 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "@/styles/tokens.css";
 
 export const footer = style({
   background: "#111827",
-  color: "#E5E7EB",
+  color: "#e5e7eb",
+  // 원본은 68px(패딩 48 + 컨텐츠 20). 여기서는 93px 로 늘린다.
+  minHeight: "93px",
 });
 
 export const inner = style({
-  maxWidth: "1200px",
+  maxWidth: vars.size.maxContentWidth,
   margin: "0 auto",
   padding: "24px 16px",
   display: "flex",
@@ -18,7 +21,7 @@ export const inner = style({
 });
 
 export const links = style({
-  display:"flex",
+  display: "flex",
   gap: "16px",
 });
 
@@ -27,8 +30,10 @@ export const sns = style({
   gap: "12px",
 });
 
-export const snsIcon = style({
-  width: "20px",
-  height: "20px",
-});
+export const snsLink = style({
+  transition: "opacity 0.2s ease",
+  ":hover": {
+    opacity: "0.6",
+    },
+  });
 

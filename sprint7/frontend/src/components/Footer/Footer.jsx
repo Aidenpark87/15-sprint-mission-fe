@@ -19,7 +19,7 @@ export default function Footer() {
         </div>
         <div className={styles.sns}>
           {SNS_LINKS.map(({ icon, label, url }) => (
-            <a href={url} key={label} aria-label={label} target="_blank" rel="noopener noreferrer">
+            <a href={url} key={label} aria-label={label} target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
               <Image src={icon} alt="" width={20} height={20} />
             </a>
           ))} 
