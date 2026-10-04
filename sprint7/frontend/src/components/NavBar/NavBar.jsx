@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -14,21 +15,33 @@ export default function NavBar() {
   const onItems = pathname.startsWith("/items") || pathname === "/registration";
 
   return (
-    <header className={styles.navbar}>
+    <header className={styles.header}>
       <div className={styles.inner}>
         <div className={styles.left}>
-          <Link href="/" className={styles.logo}>
-          <Image src={pandaLogo} alt="판다마켓 로고" width={40} height={40} />
-          판다마켓
+          <Link href="/" className={styles.logoLink}>
+            <Image
+              src={pandaLogo}
+              alt="판다마켓 로고"
+              className={styles.logoIcon}
+              width={40}
+              height={40}
+            />
+            판다마켓
           </Link>
 
           {!isLandingPage && (
-            <nav className={styles.menu}>
-              <Link href="/boards" className={onBoard ? styles.menuItemActive : ""}>
-              자유 게시판
+            <nav className={styles.nav}>
+              <Link
+                href="/boards"
+                className={clsx(styles.navLink, onBoard && styles.navLinkActive)}
+              >
+                자유게시판
               </Link>
-              <Link href="/items" className={onItems ? styles.menuItemActive : ""}>
-              중고마켓
+              <Link
+                href="/items"
+                className={clsx(styles.navLink, onItems && styles.navLinkActive)}
+              >
+                중고마켓
               </Link>
             </nav>
           )}
@@ -38,5 +51,5 @@ export default function NavBar() {
         </button>
       </div>
     </header>
-  )
+  );
 }
