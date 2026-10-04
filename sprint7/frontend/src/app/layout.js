@@ -1,4 +1,3 @@
-import "@/styles/reset.css.js";
 import "@/styles/globals.css.js";
 import GlobalLayout from "@/components/layouts/GlobalLayout";
 
