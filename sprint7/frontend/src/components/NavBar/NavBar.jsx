@@ -11,7 +11,7 @@ const pandaLogo = "/assets/icons/panda-logo.svg";
 export default function NavBar() {
   const pathname = usePathname();
   const isLandingPage = pathname === "/";
-  const onBoard = pathname.startsWith("/boards") || pathname === "/addboard";
+  const onBoard = pathname.startsWith("/board") || pathname === "/addArticle";
   const onItems = pathname.startsWith("/items") || pathname === "/registration";
 
   return (
@@ -32,14 +32,20 @@ export default function NavBar() {
           {!isLandingPage && (
             <nav className={styles.nav}>
               <Link
-                href="/boards"
-                className={clsx(styles.navLink, onBoard && styles.navLinkActive)}
+                href="/board"
+                className={clsx(
+                  styles.navLink,
+                  onBoard && styles.navLinkActive,
+                )}
               >
                 자유게시판
               </Link>
               <Link
                 href="/items"
-                className={clsx(styles.navLink, onItems && styles.navLinkActive)}
+                className={clsx(
+                  styles.navLink,
+                  onItems && styles.navLinkActive,
+                )}
               >
                 중고마켓
               </Link>
