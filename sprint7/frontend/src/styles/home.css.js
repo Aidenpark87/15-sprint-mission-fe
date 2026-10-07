@@ -243,7 +243,6 @@ export const featureText = style({
   },
 });
 
-/* 원본 `.landing-feature-row__eyebrow` */
 export const featureEyebrow = style({
   fontSize: "14px",
   fontWeight: "700",
@@ -251,8 +250,6 @@ export const featureEyebrow = style({
   marginBottom: "12px",
 });
 
-/* 원본 `.landing-feature-row__text h2`
-   클래스를 직접 주면 eyebrow 와의 우선순위 충돌이 구조적으로 사라진다. */
 export const featureTitle = style({
   fontSize: "28px",
   fontWeight: "700",
@@ -269,7 +266,6 @@ export const featureTitle = style({
   },
 });
 
-/* 원본 `.landing-feature-row__text p` */
 export const featureDescription = style({
   fontSize: "16px",
   lineHeight: "1.6",
@@ -282,7 +278,6 @@ export const featureDescription = style({
   },
 });
 
-/* 원본 .landing-feature-row__break — 1024px 이하에서 숨김 */
 export const featureBreak = style({
   "@media": {
     [media.tabletDown]: {
@@ -290,10 +285,6 @@ export const featureBreak = style({
     },
   },
 });
-
-/* ============================================================
-   ③ TRUST
-   ============================================================ */
 
 export const trust = style({
   width: "100%",
@@ -341,7 +332,6 @@ export const trustInner = style({
   },
 });
 
-/* 원본 `.landing-trust__inner h2` */
 export const trustTitle = style({
   fontSize: "40px",
   fontWeight: "700",

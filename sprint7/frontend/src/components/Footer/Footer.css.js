@@ -4,7 +4,6 @@ import { vars } from "@/styles/tokens.css";
 export const footer = style({
   background: "#111827",
   color: "#e5e7eb",
-  // 원본은 68px(패딩 48 + 컨텐츠 20). 여기서는 93px 로 늘린다.
   minHeight: "93px",
 });
 

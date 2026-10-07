@@ -65,7 +65,6 @@ export const nav = style({
   fontSize: "18px",
 });
 
-/* 원본은 활성 메뉴에만 색상 클래스를 붙이고, 비활성은 `a { color: inherit }` 을 따른다. */
 export const navLink = style({});
 
 export const navLinkActive = style({

@@ -1,13 +1,6 @@
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
-/**
- * 원본 mission7 변경전/src/index.css 의 :root 변수 값을 한 곳에서만 출력한다.
- * 이름은 tokens.css.js(-contract)가, 값은 여기(globalStyle)가 담당한다.
- *
- * createThemeContract 의 값은 "var(--이름__해시)" 문자열이라 그대로 속성명으로 쓰면
- * `var(--blue): 값` 처럼 잘못된 CSS 가 된다. 아래 toPropertyName 이 var() 를 벗겨 준다.
- */
 const toPropertyName = (token) => token.replace(/^var\((--[\w-]+)\)$/, "$1");
 
 const CSS_VARIABLES = {
