@@ -34,6 +34,5 @@ export const snsLink = style({
   transition: "opacity 0.2s ease",
   ":hover": {
     opacity: "0.6",
-    },
-  });
-
+  },
+});

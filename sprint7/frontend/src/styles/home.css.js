@@ -1,8 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { media, vars } from "@/styles/tokens.css";
 
-
-
 export const hero = style({
   width: "100%",
   height: "540px",
@@ -70,7 +68,6 @@ export const heroText = style({
   },
 });
 
-
 export const heroTitle = style({
   margin: "0",
   color: vars.color.gray700,
@@ -92,7 +89,6 @@ export const heroTitle = style({
     },
   },
 });
-
 
 export const heroBreak = style({
   "@media": {
@@ -158,7 +154,6 @@ export const heroImageWrap = style({
   },
 });
 
-
 export const heroImage = style({
   width: "100%",
   maxWidth: vars.size.heroImageWidth,
@@ -176,8 +171,6 @@ export const heroImage = style({
     },
   },
 });
-
-
 
 export const features = style({
   background: vars.color.white,
@@ -217,7 +210,6 @@ export const featureRow = style({
     },
   },
 });
-
 
 export const featureRowReverse = style({
   flexDirection: "row-reverse",
