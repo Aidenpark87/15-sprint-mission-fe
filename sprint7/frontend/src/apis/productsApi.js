@@ -1,27 +1,51 @@
-import { requestApi } from "./requestApi";
+import httpClient from "./httpClient";
 
 export async function fetchProductList(
-  { page = 1, pageSize = 10, orderBy = "recent", keyword = "" } = {},
-  requestOptions = {},
+  { page = 1, pageSize = 10, orderBy = "recent", keyword } = {},
 ) {
-  const offset = (page - 1) * pageSize;
-  const payload = await requestApi("/products", {
-    query: { offset, limit: pageSize, sort: orderBy, keyword },
-    ...requestOptions,
+
+  const { data } = await httpClient.get("/products", {
+    params: {
+      offset: (page - 1) * pageSize,
+      limit: pageSize,
+      sort: orderBy,
+      ...(keyword ? { keyword } : {}),
+    },
   });
-  return {
-    list: payload?.list ?? [],
-    totalCount: payload?.totalCount ?? payload?.list?.length ?? 0,
-  };
+  return data;
 }
 
-export async function fetchProductDetail(productId, requestOptions = {}) {
-  return requestApi(`/products/${productId}`, requestOptions);
+export async function fetchProductDetail(productId) {
+  const { data } = await httpClient.get(`/products/${productId}`);
+  return data;
+}
+
+export async function updateProduct(productId, body) {
+  const { data } = await httpClient.patch(`/products/${productId}`, body);
+  return data;
+}
+
+export async function deleteProduct(productId) {
+  const { data } = await httpClient.delete(`/products/${productId}`);
+  return data;
+}
+
+export async function addFavorite(productId) {
+  const { data } = await httpClient.post(`/products/${productId}/favorite`);
+  return data;
+}
+
+export async function removeFavorite(productId) {
+  const { data } = await httpClient.delete(`/products/${productId}/favorite`);
+  return data;
 }
 
 export async function createProduct({ name, description, price, tags }) {
-  return requestApi("/products", {
-    method: "POST",
-    body: { name, description, price, tags },
+  const { data } = await httpClient.post("/products", {
+    name,
+    description,
+    price,
+    tags,
   });
+  return data;
 }

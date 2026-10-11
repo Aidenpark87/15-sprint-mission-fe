@@ -1,5 +1,5 @@
 import "@/styles/globals.css.js";
-import GlobalLayout from "@/components/layouts/GlobalLayout";
+import Providers from "./providers";
 
 export const metadata = {
   title: "판다 마켓",
@@ -9,8 +9,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
+      <head>
+        {}
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
       <body>
-        <GlobalLayout>{children}</GlobalLayout>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
