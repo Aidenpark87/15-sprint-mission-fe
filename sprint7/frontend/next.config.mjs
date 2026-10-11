@@ -8,6 +8,15 @@ const nextConfig = {
   agentRules: false,
   reactStrictMode: true,
   reactCompiler: true,
+  output: "standalone",
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
 };
 
 export default withVanillaExtract(nextConfig);
