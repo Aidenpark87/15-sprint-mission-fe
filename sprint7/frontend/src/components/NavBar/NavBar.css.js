@@ -16,8 +16,9 @@ export const inner = style({
   justifyContent: "space-between",
 
   "@media": {
+
     [media.mobileDown]: {
-      padding: "0 12px",
+      padding: "0 16px",
     },
   },
 });
@@ -71,6 +72,12 @@ export const navLinkActive = style({
   color: vars.color.blue,
 });
 
+export const right = style({
+  display: "flex",
+  alignItems: "center",
+  flexShrink: "0",
+});
+
 export const login = style({
   height: "42px",
   background: vars.color.blue,
@@ -96,5 +103,64 @@ export const login = style({
       fontSize: "14px",
       whiteSpace: "nowrap",
     },
+  },
+});
+
+export const profile = style({
+  position: "relative",
+});
+
+export const profileButton = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+});
+
+export const avatar = style({
+  width: "40px",
+  height: "40px",
+  borderRadius: vars.radius.full,
+  objectFit: "cover",
+
+  "@media": {
+    [media.mobileDown]: {
+      width: "32px",
+      height: "32px",
+    },
+  },
+});
+
+export const nickname = style({
+  fontSize: "14px",
+  color: vars.color.gray600,
+  whiteSpace: "nowrap",
+
+  "@media": {
+    [media.mobileDown]: {
+      display: "none",
+    },
+  },
+});
+
+export const menu = style({
+  position: "absolute",
+  top: "calc(100% + 8px)",
+  right: 0,
+  minWidth: "120px",
+  padding: "4px",
+  background: "#fff",
+  border: `1px solid ${vars.color.gray300}`,
+  borderRadius: vars.radius.btn,
+  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.06)",
+});
+
+export const menuButton = style({
+  width: "100%",
+  height: "40px",
+  fontSize: "14px",
+  color: vars.color.gray500,
+
+  ":hover": {
+    color: vars.color.gray900,
   },
 });
