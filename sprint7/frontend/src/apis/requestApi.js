@@ -1,5 +1,6 @@
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:5001/api";
+  process.env.NEXT_PUBLIC_API_BASE_URL ??
+  "https://panda-backend-1009854540156.asia-northeast3.run.app/api";
 
 const isDefined = (value) =>
   value !== undefined && value !== null && value !== "";
