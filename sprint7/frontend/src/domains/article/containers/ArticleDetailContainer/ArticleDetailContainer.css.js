@@ -52,21 +52,6 @@ export const detailBody = style({
   whiteSpace: "pre-wrap",
 });
 
-export const backWrap = style({
-  display: "flex",
-  justifyContent: "center",
-  marginTop: "40px",
-});
-
-export const backBtn = style({
-  height: "48px",
-  padding: "0 40px",
-  borderRadius: vars.radius.round,
-  fontSize: "18px",
-  display: "inline-flex",
-  alignItems: "center",
-});
-
 export const commentArea = style({
   height: "104px",
   resize: "none",

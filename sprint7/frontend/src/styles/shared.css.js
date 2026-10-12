@@ -117,9 +117,12 @@ export const sortTrigger = style({
   gap: "4px",
   height: "42px",
   padding: "0 12px 0 16px",
-  border: `1px solid ${vars.color.gray300}`,
-  borderRadius: vars.radius.btn,
+  border: `1px solid ${vars.color.gray200}`,
+  borderRadius: vars.radius.md,
   background: vars.color.white,
+  fontSize: "16px",
+  lineHeight: "26px",
+  color: vars.color.gray900,
 });
 
 export const sortArrow = style({
@@ -131,30 +134,32 @@ export const sortMenu = style({
   position: "absolute",
   top: "44px",
   right: "0",
+  zIndex: 30,
   background: vars.color.white,
-  border: `1px solid ${vars.color.gray300}`,
-  borderRadius: vars.radius.btn,
+  border: `1px solid ${vars.color.gray200}`,
+  borderRadius: vars.radius.md,
   overflow: "hidden",
-  minWidth: "110px",
+  minWidth: "130px",
 });
 
 globalStyle(`${sortMenu} button`, {
   display: "block",
   width: "100%",
-  padding: "10px 14px",
+  height: "42px",
+  padding: "0 14px",
   textAlign: "left",
-  fontSize: "14px",
-  color: vars.color.gray600,
+  fontSize: "16px",
+  color: vars.color.gray900,
 });
 
 globalStyle(`${sortMenu} button:hover`, {
-  background: vars.color.gray100,
+  background: vars.color.gray50,
 });
 
 export const board = style({
   maxWidth: vars.size.maxContentWidth,
   margin: "0 auto",
-  padding: "24px 16px 80px",
+  padding: "24px 16px 0",
 });
 
 export const heading = style({
