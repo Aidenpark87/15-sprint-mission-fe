@@ -19,17 +19,25 @@ export async function fetchArticleDetail(articleId, requestOptions = {}) {
   return requestApi(`/articles/${articleId}`, requestOptions);
 }
 
-export async function createArticle({ title, content }) {
-  return requestApi("/articles", { method: "POST", body: { title, content } });
+export async function createArticle({ title, content, images }) {
+  return requestApi("/articles", { method: "POST", body: { title, content, images } });
 }
 
-export async function updateArticle(articleId, { title, content }) {
+export async function updateArticle(articleId, { title, content, images }) {
   return requestApi(`/articles/${articleId}`, {
     method: "PATCH",
-    body: { title, content },
+    body: { title, content, images },
   });
 }
 
 export async function deleteArticle(articleId) {
   return requestApi(`/articles/${articleId}`, { method: "DELETE" });
+}
+
+export async function addArticleLike(articleId) {
+  return requestApi(`/articles/${articleId}/like`, { method: "POST" });
+}
+
+export async function removeArticleLike(articleId) {
+  return requestApi(`/articles/${articleId}/like`, { method: "DELETE" });
 }

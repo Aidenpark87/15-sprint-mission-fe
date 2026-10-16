@@ -4,6 +4,8 @@ export {
   createArticle,
   updateArticle,
   deleteArticle,
+  addArticleLike,
+  removeArticleLike,
 } from "./articlesApi";
 export {
   fetchCommentList,
@@ -17,8 +19,9 @@ export {
   fetchProductDetail,
   updateProduct,
   deleteProduct,
-  addFavorite,
-  removeFavorite,
+  addLike,
+  removeLike,
+  uploadImage,
   createProduct,
 } from "./productsApi";
 export {

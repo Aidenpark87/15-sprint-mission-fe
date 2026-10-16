@@ -2,8 +2,10 @@
 
 import { useCallback, useState } from "react";
 import { createComment, deleteComment, updateComment } from "@/apis";
+import { useAuth } from "@/domains/auth/hooks/useAuth";
 
 export function useCommentThread(articleId, initialComments = []) {
+  const { user } = useAuth();
   const [comments, setComments] = useState(initialComments);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState(null);
@@ -26,10 +28,13 @@ export function useCommentThread(articleId, initialComments = []) {
     if (content.length === 0) return;
     run(async () => {
       const created = await createComment(articleId, content);
-      setComments((prev) => [created, ...prev]);
+      const writer =
+        created?.writer ??
+        (user ? { id: user.id, nickname: user.nickname, image: user.image } : null);
+      setComments((prev) => [{ ...created, writer }, ...prev]);
       setDraft("");
     });
-  }, [articleId, draft, run]);
+  }, [articleId, draft, run, user]);
 
   const handleEdit = useCallback(
     (commentId, content) => {

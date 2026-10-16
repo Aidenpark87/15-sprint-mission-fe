@@ -1,3 +1,5 @@
+import { getToken } from "@/utils/token";
+
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ??
   "https://panda-backend-1009854540156.asia-northeast3.run.app/api";
@@ -46,6 +48,7 @@ export async function requestApi(path, options = {}) {
     next,
   } = options;
   const requestBody = body ? JSON.stringify(body) : undefined;
+  const token = getToken();
 
   const response = await fetch(buildRequestUrl(path, query), {
     method,
@@ -53,6 +56,7 @@ export async function requestApi(path, options = {}) {
     headers: {
       Accept: "application/json",
       ...(requestBody ? { "Content-Type": "application/json" } : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...headers,
     },
     ...(requestBody ? { body: requestBody } : {}),
