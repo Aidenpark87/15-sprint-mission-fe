@@ -8,10 +8,17 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "@next/next/no-img-element": "off",
+    },
+  },
+  {
+    files: ["src/domains/auth/hooks/useGoogleLogin.js"],
+    rules: {
+      "@next/next/no-location-assign-relative-destination": "off",
     },
   },
 
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", ".vercel/**", "out/**", "build/**", "next-env.d.ts"]),
 ]);
 
 export default eslintConfig;

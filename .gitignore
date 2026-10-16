@@ -13,3 +13,11 @@ node_modules
 
 # 배포
 .nvmrc
+# Vercel (로컬 링크)
+.vercel
+
+# 이전 미션 잔여물 (커밋 금지)
+sprint5/
+Sprint 4/
+Sprint3/
+dist/
