@@ -106,6 +106,15 @@ export const thumb = style({
   flexShrink: "0",
 });
 
+export const thumbPhoto = style({
+  width: vars.size.thumb,
+  height: vars.size.thumb,
+  objectFit: "cover",
+  borderRadius: vars.radius.sm,
+  background: vars.color.gray100,
+  flexShrink: "0",
+});
+
 export const postItem = style({
   display: "block",
   marginTop: "24px",

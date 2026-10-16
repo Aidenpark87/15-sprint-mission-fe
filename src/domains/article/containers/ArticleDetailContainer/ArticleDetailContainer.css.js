@@ -44,6 +44,33 @@ export const detailLike = style({
   padding: "6px 14px",
   border: `1px solid ${vars.color.gray300}`,
   borderRadius: vars.radius.pill,
+  background: "none",
+  font: "inherit",
+  color: "inherit",
+  cursor: "pointer",
+});
+
+export const detailImages = style({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "16px",
+  marginTop: "24px",
+});
+
+export const detailImageItem = style({
+  flex: "1 1 200px",
+  maxWidth: "320px",
+  aspectRatio: "1 / 1",
+  borderRadius: vars.radius.md,
+  overflow: "hidden",
+  background: vars.color.gray100,
+});
+
+export const detailImage = style({
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  display: "block",
 });
 
 export const detailBody = style({

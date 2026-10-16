@@ -19,6 +19,42 @@ export const product = style({
   },
 });
 
+export const gallery = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+  minWidth: 0,
+});
+
+export const thumbList = style({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "8px",
+});
+
+export const thumb = style({
+  width: "72px",
+  height: "72px",
+  padding: 0,
+  border: `1px solid ${vars.color.gray200}`,
+  borderRadius: vars.radius.md,
+  overflow: "hidden",
+  background: vars.color.gray100,
+  cursor: "pointer",
+  flexShrink: 0,
+});
+
+export const thumbActive = style({
+  border: `2px solid ${vars.color.blue}`,
+});
+
+export const thumbImg = style({
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  display: "block",
+});
+
 export const imageWrap = style({
   position: "relative",
   width: "100%",
@@ -224,19 +260,14 @@ export const divider = style({
 });
 
 export const favorite = style({
-  display: "flex",
+  display: "inline-flex",
   alignItems: "center",
   gap: "4px",
-  height: "40px",
-  padding: "4px 12px",
-  border: `1px solid ${vars.color.gray200}`,
-  borderRadius: "35px",
-  background: vars.color.white,
-  fontSize: "16px",
-  lineHeight: "26px",
-  color: vars.color.gray500,
-});
-
-export const favoriteIcon = style({
-  marginLeft: "-4px",
+  padding: "6px 14px",
+  border: `1px solid ${vars.color.gray300}`,
+  borderRadius: vars.radius.pill,
+  background: "none",
+  font: "inherit",
+  color: "inherit",
+  cursor: "pointer",
 });

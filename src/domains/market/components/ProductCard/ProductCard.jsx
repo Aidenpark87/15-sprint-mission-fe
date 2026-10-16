@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon } from "@/components/Icons";
 import { queryKeys } from "@/domains/market/hooks/useProductQueries";
@@ -14,7 +13,7 @@ import * as styles from "./ProductCard.css";
 export function ProductCard({ product }) {
   const queryClient = useQueryClient();
 
-  const image = getProductImage(product.id);
+  const image = getProductImage(product);
 
   const prefetch = () => {
     if (!getToken()) return;
@@ -34,12 +33,11 @@ export function ProductCard({ product }) {
     >
       <div className={styles.imageWrap}>
         {image ? (
-          <Image
+          <img
             src={image}
             alt={product.name}
-            fill
-            sizes="(max-width: 743px) 90vw, (max-width: 1199px) 30vw, 20vw"
             className={styles.image}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         ) : (
           <div className={styles.noImage} />
@@ -49,7 +47,7 @@ export function ProductCard({ product }) {
       <p className={styles.price}>{formatPrice(product.price)}</p>
       <p className={styles.favorite}>
         <HeartIcon size={16} />
-        <span>{product.favoriteCount ?? 0}</span>
+        <span>{product.likeCount ?? product.favoriteCount ?? 0}</span>
       </p>
     </Link>
   );

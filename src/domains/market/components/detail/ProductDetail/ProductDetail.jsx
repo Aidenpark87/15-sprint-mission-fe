@@ -1,28 +1,60 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { HeartIcon } from "@/components/Icons";
 import { KebabMenu } from "@/components/KebabMenu";
 import { formatDotDate, formatPrice } from "@/utils";
-import { getProductImage } from "@/domains/market/utils/productImage";
+import { getProductImage, resolveImageUrl } from "@/domains/market/utils/productImage";
 import * as styles from "./ProductDetail.css";
 
 export function ProductDetail({ product, onEdit, onDelete, onToggleFavorite }) {
   const tags = product.tags ?? [];
+  const images = Array.isArray(product.images) ? product.images : [];
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const image = getProductImage(product.id);
+  const mainImage =
+    images.length > 0
+      ? resolveImageUrl(images[Math.min(selectedIndex, images.length - 1)])
+      : getProductImage(product);
 
   return (
     <section className={styles.product}>
-      <div className={styles.imageWrap}>
-        <Image
-          src={image}
-          alt={product.name}
-          fill
-          sizes="(min-width: 1200px) 486px, (min-width: 744px) 340px, 100vw"
-          priority
-          className={styles.image}
-        />
+      <div className={styles.gallery}>
+        <div className={styles.imageWrap}>
+          <img
+            src={mainImage}
+            alt={product.name}
+            className={styles.image}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+
+        {images.length > 1 && (
+          <ul className={styles.thumbList}>
+            {images.map((url, index) => (
+              <li key={`${url}-${index}`}>
+                <button
+                  type="button"
+                  className={
+                    index === selectedIndex
+                      ? `${styles.thumb} ${styles.thumbActive}`
+                      : styles.thumb
+                  }
+                  onClick={() => setSelectedIndex(index)}
+                  aria-label={`${index + 1}번째 이미지 보기`}
+                  aria-pressed={index === selectedIndex}
+                >
+                  <img
+                    src={resolveImageUrl(url)}
+                    alt=""
+                    className={styles.thumbImg}
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className={styles.info}>
@@ -71,14 +103,12 @@ export function ProductDetail({ product, onEdit, onDelete, onToggleFavorite }) {
           <button
             type="button"
             className={styles.favorite}
-            onClick={() => onToggleFavorite(Boolean(product.isFavorite))}
-            aria-pressed={Boolean(product.isFavorite)}
-            aria-label={product.isFavorite ? "좋아요 취소" : "좋아요"}
+            onClick={() => onToggleFavorite(Boolean(product.isLiked))}
+            aria-pressed={Boolean(product.isLiked)}
+            aria-label={product.isLiked ? "좋아요 취소" : "좋아요"}
           >
-            <span className={styles.favoriteIcon}>
-              <HeartIcon size={32} filled={Boolean(product.isFavorite)} />
-            </span>
-            <span>{product.favoriteCount ?? 0}</span>
+            <HeartIcon size={24} filled={Boolean(product.isLiked)} />
+            <span>{product.likeCount ?? product.favoriteCount ?? 0}</span>
           </button>
         </div>
       </div>
