@@ -52,24 +52,28 @@ export const detailLike = style({
 
 export const detailImages = style({
   display: "flex",
-  flexWrap: "wrap",
+  flexDirection: "column",
+  alignItems: "flex-start",
   gap: "16px",
   marginTop: "24px",
 });
 
 export const detailImageItem = style({
-  flex: "1 1 200px",
-  maxWidth: "320px",
-  aspectRatio: "1 / 1",
+  maxWidth: "66%",
   borderRadius: vars.radius.md,
   overflow: "hidden",
   background: vars.color.gray100,
+
+  "@media": {
+    [boardMedia.below767]: {
+      maxWidth: "100%",
+    },
+  },
 });
 
 export const detailImage = style({
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
+  maxWidth: "100%",
+  height: "auto",
   display: "block",
 });
 
