@@ -1,8 +1,8 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMe, signIn, signUp } from "@/apis/authApi";
-import { setToken } from "@/utils/token";
+import { getMe, signIn, signInWithGoogle, signUp } from "@/apis/authApi";
+import { setTokens } from "@/utils/token";
 import { useAuthToken } from "./useAuthToken";
 
 export const queryKeys = {
@@ -25,7 +25,7 @@ export function useSignIn() {
   return useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
-      setToken(data.accessToken);
+      setTokens(data);
       queryClient.invalidateQueries({ queryKey: queryKeys.me });
     },
   });
@@ -36,7 +36,18 @@ export function useSignUp() {
   return useMutation({
     mutationFn: signUp,
     onSuccess: (data) => {
-      setToken(data.accessToken);
+      setTokens(data);
+      queryClient.invalidateQueries({ queryKey: queryKeys.me });
+    },
+  });
+}
+
+export function useGoogleSignIn() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: signInWithGoogle,
+    onSuccess: (data) => {
+      setTokens(data);
       queryClient.invalidateQueries({ queryKey: queryKeys.me });
     },
   });

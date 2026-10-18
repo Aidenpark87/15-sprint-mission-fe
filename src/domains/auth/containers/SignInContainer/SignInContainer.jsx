@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { AuthShell } from "@/domains/auth/components/AuthShell";
@@ -9,7 +9,8 @@ import { TextField } from "@/domains/auth/components/TextField";
 import { SocialLogin } from "@/domains/auth/components/SocialLogin";
 import { AlertModal } from "@/components/Modal";
 import { useRedirectIfLoggedIn } from "@/domains/auth/hooks/useRedirectIfLoggedIn";
-import { useSignIn } from "@/domains/auth/hooks/useAuthQueries";
+import { readGoogleCode } from "@/domains/auth/hooks/useGoogleLogin";
+import { useGoogleSignIn, useSignIn } from "@/domains/auth/hooks/useAuthQueries";
 import { getErrorMessage } from "@/apis/httpClient";
 import * as styles from "../AuthForm.css";
 
@@ -20,6 +21,23 @@ export function SignInContainer() {
   const redirecting = useRedirectIfLoggedIn();
   const [modalMessage, setModalMessage] = useState("");
   const { mutate, isPending } = useSignIn();
+  const googleSignIn = useGoogleSignIn();
+  const handledCode = useRef(false);
+
+  useEffect(() => {
+    const code = readGoogleCode();
+    if (!code || handledCode.current) return;
+    handledCode.current = true;
+
+    googleSignIn.mutate(
+      { code },
+      {
+        onSuccess: () => router.replace("/items"),
+        onError: (error) =>
+          setModalMessage(getErrorMessage(error, "구글 로그인에 실패했어요.")),
+      },
+    );
+  }, [googleSignIn, router]);
 
   const {
     register,

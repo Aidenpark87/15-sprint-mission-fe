@@ -1,15 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { startGoogleLogin } from "@/domains/auth/hooks/useGoogleLogin";
 import * as styles from "./SocialLogin.css";
 
 const SOCIAL_LINKS = [
-  {
-    href: "https://www.google.com",
-    label: "구글로 로그인",
-    bg: "/images/google-bg.svg",
-    glyph: "/images/google.png",
-    glyphWidth: 22,
-    glyphHeight: 22,
-  },
   {
     href: "https://www.kakaocorp.com/page",
     label: "카카오로 로그인",
@@ -25,6 +20,21 @@ export function SocialLogin() {
     <div className={styles.social}>
       <span>간편 로그인하기</span>
       <div className={styles.icons}>
+        <button
+          type="button"
+          aria-label="구글로 로그인"
+          className={styles.iconLink}
+          onClick={startGoogleLogin}
+        >
+          <Image src="/images/google-bg.svg" alt="" width={42} height={42} />
+          <Image
+            src="/images/google.png"
+            alt=""
+            width={22}
+            height={22}
+            className={styles.glyph}
+          />
+        </button>
         {SOCIAL_LINKS.map((item) => (
           <a key={item.href} href={item.href} aria-label={item.label} className={styles.iconLink}>
             <Image src={item.bg} alt="" width={42} height={42} />

@@ -33,6 +33,10 @@ export const iconLink = style({
   display: "block",
   width: "42px",
   height: "42px",
+  padding: 0,
+  border: "none",
+  background: "none",
+  cursor: "pointer",
 });
 
 export const glyph = style({
