@@ -1,5 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
-import { vars } from "@/styles/tokens.css";
+import { boardMedia, vars } from "@/styles/tokens.css";
+import { focusRing } from "@/styles/focus";
 
 export const registration = style({
   maxWidth: vars.size.maxContentWidth,
@@ -77,7 +78,7 @@ export const input = style({
   outline: "none",
 
   ":focus": {
-    borderColor: vars.color.blue,
+    ...focusRing,
   },
 });
 
@@ -99,7 +100,7 @@ export const textarea = style({
   resize: "vertical",
 
   ":focus": {
-    borderColor: vars.color.blue,
+    ...focusRing,
   },
 });
 
@@ -146,4 +147,75 @@ export const tagHash = style({
 export const tagRemove = style({
   width: "12px",
   height: "12px",
+});
+
+export const images = style({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "24px",
+  "@media": {
+    [boardMedia.below767]: {
+      gap: "16px",
+    },
+  },
+});
+
+export const upload = style({
+  width: "282px",
+  height: "282px",
+  border: "none",
+  borderRadius: vars.radius.md,
+  background: vars.color.gray100,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "8px",
+  color: vars.color.gray400,
+  fontSize: "16px",
+  cursor: "pointer",
+  flexShrink: "0",
+  "@media": {
+    [boardMedia.below1199]: {
+      width: "168px",
+      height: "168px",
+    },
+  },
+});
+
+export const preview = style({
+  position: "relative",
+  width: "282px",
+  height: "282px",
+  flexShrink: "0",
+  "@media": {
+    [boardMedia.below1199]: {
+      width: "168px",
+      height: "168px",
+    },
+  },
+});
+
+export const previewImg = style({
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  borderRadius: vars.radius.md,
+  display: "block",
+});
+
+export const removeImage = style({
+  position: "absolute",
+  top: "11px",
+  right: "11px",
+  display: "flex",
+  border: "none",
+  background: "none",
+  cursor: "pointer",
+});
+
+export const imageError = style({
+  fontSize: "14px",
+  lineHeight: "20px",
+  color: vars.color.red,
 });

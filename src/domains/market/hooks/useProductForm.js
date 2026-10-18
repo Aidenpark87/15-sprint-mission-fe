@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { TEXT_LIMIT } from "@/constants/limits";
 
 const VALIDATORS = {
   name: (value) => {
     if (value.trim() === "") return "상품명을 입력해주세요.";
-    if (value.length < 1 || value.length > 10) {
-      return "상품명은 1자 이상 10자 이내로 입력해주세요.";
+    if (value.length < 1 || value.length > TEXT_LIMIT.productName) {
+      return `상품명은 1자 이상 ${TEXT_LIMIT.productName}자 이내로 입력해주세요.`;
     }
     return "";
   },
   description: (value) => {
     if (value.trim() === "") return "상품 소개를 입력해주세요.";
-    if (value.length < 10 || value.length > 100) {
-      return "상품 소개는 10자 이상 100자 이내로 입력해주세요.";
+    if (value.length < 10 || value.length > TEXT_LIMIT.productDescription) {
+      return `상품 소개는 10자 이상 ${TEXT_LIMIT.productDescription}자 이내로 입력해주세요.`;
     }
     return "";
   },

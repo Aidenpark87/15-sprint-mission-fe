@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
+import { focusRing } from "@/styles/focus";
 
 export const form = style({
   width: "560px",
@@ -40,10 +41,8 @@ export const input = style({
   fontSize: "16px",
   lineHeight: "24px",
 
-  selectors: {
-    "&:focus": {
-      borderColor: vars.color.blue,
-    },
+  ":focus": {
+    ...focusRing,
   },
 });
 
@@ -58,10 +57,8 @@ export const textarea = style({
   lineHeight: "24px",
   resize: "none",
 
-  selectors: {
-    "&:focus": {
-      borderColor: vars.color.blue,
-    },
+  ":focus": {
+    ...focusRing,
   },
 });
 
@@ -84,6 +81,54 @@ export const buttons = style({
   gap: "24px",
 });
 
+export const imageArea = style({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+});
+
+export const uploadTile = style({
+  width: "120px",
+  height: "120px",
+  border: "none",
+  borderRadius: "12px",
+  background: vars.color.gray100,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "6px",
+  color: vars.color.gray400,
+  fontSize: "13px",
+  cursor: "pointer",
+  flexShrink: "0",
+});
+
+export const previewTile = style({
+  position: "relative",
+  width: "120px",
+  height: "120px",
+  flexShrink: "0",
+});
+
+export const previewImg = style({
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  borderRadius: "12px",
+  display: "block",
+});
+
+export const removeTile = style({
+  position: "absolute",
+  top: "6px",
+  right: "6px",
+  display: "flex",
+  border: "none",
+  background: "none",
+  cursor: "pointer",
+});
+
 export const cancel = style({
   fontSize: "16px",
   fontWeight: 600,
@@ -99,10 +144,8 @@ export const save = style({
   fontSize: "16px",
   fontWeight: 600,
 
-  selectors: {
-    "&:disabled": {
-      background: vars.color.gray400,
-      cursor: "not-allowed",
-    },
+  ":disabled": {
+    background: vars.color.gray400,
+    cursor: "not-allowed",
   },
 });

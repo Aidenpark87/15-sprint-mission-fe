@@ -2,10 +2,16 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { createProduct } from "@/apis";
+import { useRef, useState } from "react";
+import { createProduct, uploadImage } from "@/apis";
+import { getErrorMessage } from "@/apis/httpClient";
+import { CharCount } from "@/components/CharCount";
+import { labelRow } from "@/components/CharCount/CharCount.css";
+import { TEXT_LIMIT } from "@/constants/limits";
 import { useProductForm } from "@/domains/market/hooks/useProductForm";
 import * as s from "./RegistrationPage.css";
+
+const MAX_IMAGES = 3;
 
 export function ProductRegistrationContainer() {
   const router = useRouter();
@@ -23,6 +29,9 @@ export function ProductRegistrationContainer() {
 
   const [tagInput, setTagInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [images, setImages] = useState([]);
+  const [imageError, setImageError] = useState(false);
+  const fileRef = useRef(null);
 
   const isTagInputTooLong = tagInput.length > 5;
 
@@ -31,6 +40,40 @@ export function ProductRegistrationContainer() {
     if (event.nativeEvent.isComposing) return;
     event.preventDefault();
     if (addTag(tagInput)) setTagInput("");
+  };
+
+  const openFilePicker = () => {
+    if (images.length >= MAX_IMAGES) {
+      setImageError(true);
+      return;
+    }
+    fileRef.current?.click();
+  };
+
+  const handleFiles = (event) => {
+    const files = Array.from(event.target.files ?? []);
+    event.target.value = "";
+    if (files.length === 0) return;
+
+    const room = MAX_IMAGES - images.length;
+    if (files.length > room) setImageError(true);
+    else setImageError(false);
+
+    const added = files.slice(0, room).map((file) => ({
+      id: `${Date.now()}-${Math.random()}`,
+      url: URL.createObjectURL(file),
+      file,
+    }));
+    setImages((prev) => [...prev, ...added]);
+  };
+
+  const removeImage = (id) => {
+    setImages((prev) => {
+      const target = prev.find((image) => image.id === id);
+      if (target?.file) URL.revokeObjectURL(target.url);
+      return prev.filter((image) => image.id !== id);
+    });
+    setImageError(false);
   };
 
   const handleSubmit = async (event) => {
@@ -46,10 +89,16 @@ export function ProductRegistrationContainer() {
 
     try {
       setIsSubmitting(true);
-      const product = await createProduct(payload);
-      router.push(`/items/${product.id ?? product._id}`);
-    } catch {
-      alert("상품 등록에 실패했습니다.");
+      const urls = await Promise.all(
+        images.map((image) =>
+          image.file ? uploadImage(image.file) : Promise.resolve(image.url),
+        ),
+      );
+      await createProduct({ ...payload, images: urls });
+      images.forEach((image) => image.file && URL.revokeObjectURL(image.url));
+      router.push("/items");
+    } catch (error) {
+      alert(getErrorMessage(error, "상품 등록에 실패했습니다."));
     } finally {
       setIsSubmitting(false);
     }
@@ -69,8 +118,56 @@ export function ProductRegistrationContainer() {
           </button>
         </div>
 
+        <div className={s.field}>
+          <span className={s.label}>상품 이미지</span>
+          <div className={s.images}>
+            <button type="button" className={s.upload} onClick={openFilePicker}>
+              <Image src="/assets/icons/ic_plus.svg" alt="" width={56} height={56} />
+              <span>이미지 등록</span>
+            </button>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              multiple
+              hidden
+              onChange={handleFiles}
+            />
+            {images.map((image) => (
+              <div key={image.id} className={s.preview}>
+                <img
+                  src={image.url}
+                  alt="상품 이미지 미리보기"
+                  className={s.previewImg}
+                />
+                <button
+                  type="button"
+                  className={s.removeImage}
+                  aria-label="이미지 삭제"
+                  onClick={() => removeImage(image.id)}
+                >
+                  <Image
+                    src="/assets/icons/ic_x_image.svg"
+                    alt=""
+                    width={22}
+                    height={24}
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
+          {imageError && (
+            <span className={s.imageError}>
+              *이미지 등록은 최대 {MAX_IMAGES}개까지 가능합니다.
+            </span>
+          )}
+        </div>
+
         <label className={s.field}>
-          <span className={s.label}>상품명</span>
+          <span className={labelRow}>
+            <span className={s.label}>상품명</span>
+            <CharCount value={values.name} max={TEXT_LIMIT.productName} />
+          </span>
           <input
             className={errors.name ? `${s.input} ${s.inputError}` : s.input}
             name="name"
@@ -85,7 +182,10 @@ export function ProductRegistrationContainer() {
         </label>
 
         <label className={s.field}>
-          <span className={s.label}>상품 소개</span>
+          <span className={labelRow}>
+            <span className={s.label}>상품 소개</span>
+            <CharCount value={values.description} max={TEXT_LIMIT.productDescription} />
+          </span>
           <textarea
             className={
               errors.description
