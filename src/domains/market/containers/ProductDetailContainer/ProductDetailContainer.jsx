@@ -9,7 +9,7 @@ import { useAuth } from "@/domains/auth/hooks/useAuth";
 import {
   useDeleteProduct,
   useProduct,
-  useToggleFavorite,
+  useToggleLike,
   useUpdateProduct,
 } from "@/domains/market/hooks/useProductQueries";
 import { ErrorMessage, LoadingIndicator } from "@/domains/market/components/Status";
@@ -29,7 +29,7 @@ export function ProductDetailContainer({ productId }) {
   const productQuery = useProduct(productId, { enabled: isReady && isLoggedIn });
   const updateMutation = useUpdateProduct(productId);
   const deleteMutation = useDeleteProduct(productId);
-  const favoriteMutation = useToggleFavorite(productId);
+  const favoriteMutation = useToggleLike(productId);
 
   useEffect(() => {
     if (isReady && !isLoggedIn) router.replace("/signin");
@@ -75,7 +75,7 @@ export function ProductDetailContainer({ productId }) {
         product={product}
         onEdit={() => setShowEdit(true)}
         onDelete={() => setShowDelete(true)}
-        onToggleFavorite={(isFavorite) => favoriteMutation.mutate(isFavorite)}
+        onToggleFavorite={(isLiked) => favoriteMutation.mutate(isLiked)}
       />
 
       <hr className={styles.rule} />

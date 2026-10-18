@@ -7,12 +7,12 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
-  addFavorite,
+  addLike,
+  removeLike,
   deleteProduct,
   fetchProductCommentList,
   fetchProductDetail,
   fetchProductList,
-  removeFavorite,
   updateProduct,
   createProductComment,
   deleteProductComment,
@@ -69,21 +69,22 @@ export function useDeleteProduct(productId) {
   });
 }
 
-export function useToggleFavorite(productId) {
+export function useToggleLike(productId) {
   const queryClient = useQueryClient();
   const key = queryKeys.product(productId);
 
   return useMutation({
-    mutationFn: (isFavorite) => (isFavorite ? removeFavorite(productId) : addFavorite(productId)),
-    onMutate: async (isFavorite) => {
+    mutationFn: (isLiked) => (isLiked ? removeLike(productId) : addLike(productId)),
+    onMutate: async (isLiked) => {
       await queryClient.cancelQueries({ queryKey: key });
       const previous = queryClient.getQueryData(key);
       queryClient.setQueryData(key, (old) =>
         old
           ? {
               ...old,
-              isFavorite: !isFavorite,
-              favoriteCount: Math.max(0, (old.favoriteCount ?? 0) + (isFavorite ? -1 : 1)),
+              isLiked: !isLiked,
+              likeCount: Math.max(0, (old.likeCount ?? old.favoriteCount ?? 0) + (isLiked ? -1 : 1)),
+              favoriteCount: Math.max(0, (old.favoriteCount ?? old.likeCount ?? 0) + (isLiked ? -1 : 1)),
             }
           : old,
       );

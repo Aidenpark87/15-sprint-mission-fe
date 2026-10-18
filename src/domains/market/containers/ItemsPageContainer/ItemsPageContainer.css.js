@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars, boardMedia } from "@/styles/tokens.css";
+import { focusRing } from "@/styles/focus";
 
 export const container = style({
   width: "calc(100% - 48px)",
@@ -89,8 +90,7 @@ export const search = style({
   background: vars.color.gray100,
 
   ":focus-within": {
-    outline: `2px solid ${vars.color.blue}`,
-    outlineOffset: "-1px",
+    ...focusRing,
   },
 });
 
@@ -125,13 +125,11 @@ export const addButton = style({
 
   transition: "background 0.2s ease, transform 0.1s ease",
 
-  selectors: {
-    "&:hover": {
-      background: vars.color.blueHover,
-    },
-    "&:active": {
-      transform: "scale(0.97)",
-    },
+  ":hover": {
+    background: vars.color.blueHover,
+  },
+  ":active": {
+    transform: "scale(0.97)",
   },
 
   "@media": {
