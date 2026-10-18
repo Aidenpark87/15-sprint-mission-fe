@@ -17,6 +17,12 @@ export function ArticleEditorContainer({ article }) {
       isSubmitting={editor.isSubmitting}
       errorMessage={editor.errorMessage}
       onSubmit={editor.submit}
+      images={editor.images}
+      fileRef={editor.fileRef}
+      openFilePicker={editor.openFilePicker}
+      handleFiles={editor.handleFiles}
+      removeImage={editor.removeImage}
+      imageError={editor.imageError}
     />
   );
 }
