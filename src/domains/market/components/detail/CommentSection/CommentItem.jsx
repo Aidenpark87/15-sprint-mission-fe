@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { CharCount } from "@/components/CharCount";
+import { belowRow } from "@/components/CharCount/CharCount.css";
 import { KebabMenu } from "@/components/KebabMenu";
+import { TEXT_LIMIT } from "@/constants/limits";
 import { timeAgo } from "@/utils";
 import * as styles from "./CommentSection.css";
 
@@ -35,7 +38,11 @@ export function CommentItem({
   );
 
   if (isEditing) {
-    const canSave = draft.trim().length > 0 && draft.trim() !== comment.content && !isSaving;
+    const canSave =
+      draft.trim().length > 0 &&
+      draft.trim() !== comment.content &&
+      draft.length <= TEXT_LIMIT.comment &&
+      !isSaving;
     return (
       <li className={`${styles.item} ${styles.editing}`}>
         <textarea
@@ -45,6 +52,9 @@ export function CommentItem({
           aria-label="문의 수정"
           autoFocus
         />
+        <div className={belowRow}>
+          <CharCount value={draft} max={TEXT_LIMIT.comment} />
+        </div>
         <div className={styles.editRow}>
           {author}
           <div className={styles.editButtons}>

@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useAuth } from "@/domains/auth/hooks/useAuth";
 import { formatDate } from "@/utils";
+import { CharCount } from "@/components/CharCount";
+import { belowRow } from "@/components/CharCount/CharCount.css";
+import { TEXT_LIMIT } from "@/constants/limits";
 import { Kebab } from "@/domains/article/components/Kebab";
 import { avatar, btn, field } from "@/styles/shared.css";
 import {
@@ -15,9 +19,17 @@ import {
   row,
 } from "@/domains/article/containers/ArticleDetailContainer/ArticleDetailContainer.css";
 
+const DEFAULT_NICKNAME = "판다";
+const DEFAULT_AVATAR = "/assets/board/ic_profile.svg";
+
 export function CommentItem({ comment, onSave, onDelete }) {
+  const { user } = useAuth();
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(comment.content);
+
+  const nickname = comment.writer?.nickname ?? DEFAULT_NICKNAME;
+  const avatarSrc = comment.writer?.image ?? DEFAULT_AVATAR;
+  const canManage = comment.writer?.id != null && user?.id === comment.writer.id;
 
   const cancel = () => {
     setText(comment.content);
@@ -36,16 +48,19 @@ export function CommentItem({ comment, onSave, onDelete }) {
           value={text}
           onChange={(event) => setText(event.target.value)}
         />
+        <div className={belowRow}>
+          <CharCount value={text} max={TEXT_LIMIT.comment} />
+        </div>
         <div className={row}>
           <span className={cmtWho}>
             <Image
-              src="/assets/board/ic_profile.svg"
+              src={avatarSrc}
               alt=""
               width={24}
               height={24}
               className={avatar}
             />
-            똑똑한판다
+            {nickname}
           </span>
           <span>
             <button type="button" className={cmtCancel} onClick={cancel}>
@@ -54,7 +69,7 @@ export function CommentItem({ comment, onSave, onDelete }) {
             <button
               type="button"
               className={btn}
-              disabled={!text.trim()}
+              disabled={!text.trim() || text.length > TEXT_LIMIT.comment}
               onClick={save}
             >
               수정 완료
@@ -69,18 +84,18 @@ export function CommentItem({ comment, onSave, onDelete }) {
     <div className={cmt}>
       <div className={row}>
         <p className={cmtText}>{comment.content}</p>
-        <Kebab onEdit={() => setEditing(true)} onDelete={onDelete} />
+        {canManage && <Kebab onEdit={() => setEditing(true)} onDelete={onDelete} />}
       </div>
       <div className={cmtWho}>
         <Image
-          src="/assets/board/ic_profile.svg"
+          src={avatarSrc}
           alt=""
           width={24}
           height={24}
           className={avatar}
         />
         <span>
-          똑똑한판다
+          {nickname}
           <span className={cmtWhoSmall}>{formatDate(comment.createdAt)}</span>
         </span>
       </div>

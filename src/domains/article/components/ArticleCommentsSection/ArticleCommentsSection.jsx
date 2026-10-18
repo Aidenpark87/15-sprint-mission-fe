@@ -2,6 +2,9 @@
 
 import { CommentsEmpty } from "@/domains/article/components/CommentsEmpty";
 import { CommentItem } from "@/domains/article/components/ArticleCommentsSection/CommentItem";
+import { CharCount } from "@/components/CharCount";
+import { inlineStart } from "@/components/CharCount/CharCount.css";
+import { TEXT_LIMIT } from "@/constants/limits";
 import { btn, field } from "@/styles/shared.css";
 import {
   cmtSubmit,
@@ -31,10 +34,15 @@ export function ArticleCommentsSection({ thread }) {
         onChange={(event) => setDraft(event.target.value)}
       />
       <div className={cmtSubmit}>
+        <CharCount
+          value={draft}
+          max={TEXT_LIMIT.comment}
+          className={inlineStart}
+        />
         <button
           type="button"
           className={btn}
-          disabled={isPending || !draft.trim()}
+          disabled={isPending || !draft.trim() || draft.length > TEXT_LIMIT.comment}
           onClick={handleCreate}
         >
           등록

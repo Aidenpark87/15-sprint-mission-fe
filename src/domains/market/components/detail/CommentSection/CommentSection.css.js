@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
+import { focusRing } from "@/styles/focus";
 import { boardMedia } from "@/styles/tokens.css";
 
 export const section = style({
@@ -33,13 +34,11 @@ export const textarea = style({
   color: vars.color.gray800,
   resize: "none",
 
-  selectors: {
-    "&::placeholder": {
-      color: vars.color.gray400,
-    },
-    "&:focus": {
-      borderColor: vars.color.blue,
-    },
+  "::placeholder": {
+    color: vars.color.gray400,
+  },
+  ":focus": {
+    ...focusRing,
   },
 
   "@media": {
@@ -73,10 +72,10 @@ export const submit = style({
     "&:active:not(:disabled)": {
       transform: "scale(0.97)",
     },
-    "&:disabled": {
-      background: vars.color.gray400,
-      cursor: "not-allowed",
-    },
+  },
+  ":disabled": {
+    background: vars.color.gray400,
+    cursor: "not-allowed",
   },
 });
 
@@ -149,10 +148,8 @@ export const editTextarea = style({
   color: vars.color.gray800,
   resize: "none",
 
-  selectors: {
-    "&:focus": {
-      borderColor: vars.color.blue,
-    },
+  ":focus": {
+    ...focusRing,
   },
 
   "@media": {
@@ -205,10 +202,10 @@ export const save = style({
     "&:active:not(:disabled)": {
       transform: "scale(0.97)",
     },
-    "&:disabled": {
-      background: vars.color.gray400,
-      cursor: "not-allowed",
-    },
+  },
+  ":disabled": {
+    background: vars.color.gray400,
+    cursor: "not-allowed",
   },
 });
 

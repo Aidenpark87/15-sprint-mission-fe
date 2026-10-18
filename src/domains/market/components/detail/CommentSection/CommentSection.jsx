@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AlertModal } from "@/components/Modal";
+import { CharCount } from "@/components/CharCount";
+import { inlineStart } from "@/components/CharCount/CharCount.css";
+import { TEXT_LIMIT } from "@/constants/limits";
 import { ErrorMessage, LoadingIndicator } from "@/domains/market/components/Status";
 import {
   useComments,
@@ -28,7 +31,10 @@ export function CommentSection({ productId }) {
   const deleteMutation = useDeleteComment(productId);
 
   const comments = commentsQuery.data?.list ?? [];
-  const canSubmit = content.trim().length > 0 && !createMutation.isPending;
+  const canSubmit =
+    content.trim().length > 0 &&
+    content.length <= TEXT_LIMIT.comment &&
+    !createMutation.isPending;
 
   const handleCreate = (event) => {
     event.preventDefault();
@@ -68,6 +74,11 @@ export function CommentSection({ productId }) {
           aria-label="문의 내용"
         />
         <div className={styles.submitRow}>
+          <CharCount
+            value={content}
+            max={TEXT_LIMIT.comment}
+            className={inlineStart}
+          />
           <button type="submit" className={styles.submit} disabled={!canSubmit}>
             등록
           </button>
