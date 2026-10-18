@@ -30,22 +30,32 @@ export async function deleteProduct(productId) {
   return data;
 }
 
-export async function addFavorite(productId) {
-  const { data } = await httpClient.post(`/products/${productId}/favorite`);
+export async function addLike(productId) {
+  const { data } = await httpClient.post(`/products/${productId}/like`);
   return data;
 }
 
-export async function removeFavorite(productId) {
-  const { data } = await httpClient.delete(`/products/${productId}/favorite`);
+export async function removeLike(productId) {
+  const { data } = await httpClient.delete(`/products/${productId}/like`);
   return data;
 }
 
-export async function createProduct({ name, description, price, tags }) {
+export async function uploadImage(file) {
+  const form = new FormData();
+  form.append("image", file);
+  const { data } = await httpClient.post("/images/upload", form, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return data?.data?.url ?? data?.url ?? data;
+}
+
+export async function createProduct({ name, description, price, tags, images }) {
   const { data } = await httpClient.post("/products", {
     name,
     description,
     price,
     tags,
+    images,
   });
   return data;
 }
