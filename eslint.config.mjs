@@ -18,7 +18,17 @@ const eslintConfig = defineConfig([
     },
   },
 
-  globalIgnores([".next/**", ".vercel/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([
+    ".next/**",
+    ".vercel/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "Sprint 4/**",
+    "Sprint3/**",
+    "sprint5/**",
+    "dist/**",
+  ]),
 ]);
 
 export default eslintConfig;
