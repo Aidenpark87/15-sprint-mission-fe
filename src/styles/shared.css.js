@@ -1,5 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
+import { focusRing } from "@/styles/focus";
 
 export const pagination = style({
   display: "flex",
@@ -19,14 +20,12 @@ export const arrowButton = style({
   border: `1px solid ${vars.color.gray300}`,
   background: vars.color.white,
 
-  selectors: {
-    "&:hover": {
-      background: vars.color.gray100,
-    },
-    "&:disabled": {
-      opacity: "0.35",
-      cursor: "not-allowed",
-    },
+  ":hover": {
+    background: vars.color.gray100,
+  },
+  ":disabled": {
+    opacity: "0.35",
+    cursor: "not-allowed",
   },
 });
 
@@ -89,8 +88,7 @@ export const searchInput = style({
   },
 
   ":focus": {
-    outline: `2px solid ${vars.color.blue}`,
-    outlineOffset: "-1px",
+    ...focusRing,
   },
 });
 
@@ -236,6 +234,6 @@ export const field = style({
   },
 
   ":focus": {
-    outline: `2px solid ${vars.color.blue}`,
+    ...focusRing,
   },
 });

@@ -52,13 +52,11 @@ export const alertButton = style({
 
   transition: "background 0.2s ease, transform 0.1s ease",
 
-  selectors: {
-    "&:hover": {
-      background: vars.color.blueHover,
-    },
-    "&:active": {
-      transform: "scale(0.97)",
-    },
+  ":hover": {
+    background: vars.color.blueHover,
+  },
+  ":active": {
+    transform: "scale(0.97)",
   },
 });
 
@@ -122,13 +120,11 @@ export const confirmButton = style({
   color: "#fff",
   transition: "transform 0.1s ease",
 
-  selectors: {
-    "&:hover": {
-      filter: "brightness(0.95)",
-    },
-    "&:active": {
-      transform: "scale(0.97)",
-    },
+  ":hover": {
+    filter: "brightness(0.95)",
+  },
+  ":active": {
+    transform: "scale(0.97)",
   },
 
   ":disabled": {

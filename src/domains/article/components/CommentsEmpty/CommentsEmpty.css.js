@@ -2,6 +2,9 @@ import { globalStyle, style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const empty = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   textAlign: "center",
   color: vars.color.gray400,
   padding: "40px 0",

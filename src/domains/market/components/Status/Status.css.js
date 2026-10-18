@@ -53,12 +53,10 @@ export const retry = style({
 
   transition: "background 0.2s ease, transform 0.1s ease",
 
-  selectors: {
-    "&:hover": {
-      background: vars.color.blueHover,
-    },
-    "&:active": {
-      transform: "scale(0.97)",
-    },
+  ":hover": {
+    background: vars.color.blueHover,
+  },
+  ":active": {
+    transform: "scale(0.97)",
   },
 });

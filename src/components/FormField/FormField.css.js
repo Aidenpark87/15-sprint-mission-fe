@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
+import { focusRing } from "@/styles/focus";
 
 export const field = style({
   display: "flex",
@@ -29,7 +30,7 @@ export const input = style({
   },
 
   ":focus": {
-    borderColor: vars.color.blue,
+    ...focusRing,
   },
 });
 

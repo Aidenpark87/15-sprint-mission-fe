@@ -28,7 +28,6 @@ export const submit = style({
     "&:hover:not(:disabled)": {
       background: vars.color.blueHover,
     },
-
     "&:active:not(:disabled)": {
       transform: "scale(0.97)",
     },

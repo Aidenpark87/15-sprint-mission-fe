@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars, boardMedia } from "@/styles/tokens.css";
+import { focusRing } from "@/styles/focus";
 
 export const field = style({
   display: "flex",
@@ -33,10 +34,8 @@ export const inputWrap = style({
   borderRadius: vars.radius.md,
   background: vars.color.gray100,
 
-  selectors: {
-    "&:focus-within": {
-      borderColor: vars.color.blue,
-    },
+  ":focus-within": {
+    ...focusRing,
   },
 });
 

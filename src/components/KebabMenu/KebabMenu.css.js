@@ -40,11 +40,9 @@ export const menuButton = style({
   color: vars.color.gray500,
   textAlign: "center",
 
-  selectors: {
-    "&:hover": {
-      background: vars.color.gray50,
-      color: vars.color.gray800,
-    },
+  ":hover": {
+    background: vars.color.gray50,
+    color: vars.color.gray800,
   },
 
   "@media": {
