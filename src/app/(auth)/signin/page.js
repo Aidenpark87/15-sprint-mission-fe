@@ -5,6 +5,8 @@ export const metadata = {
   description: "판다마켓에 로그인해 주세요.",
 };
 
-export default function SignInPage() {
-  return <SignInContainer />;
+export default async function SignInPage({ searchParams }) {
+  const { error } = await searchParams;
+
+  return <SignInContainer initialErrorCode={error ?? ""} />;
 }

@@ -5,16 +5,6 @@ export async function signIn({ email, password }) {
   return data;
 }
 
-export async function signInWithGoogle({ code }) {
-  const { data } = await httpClient.post("/auth/google", { code });
-  return data;
-}
-
-export async function refreshTokens(refreshToken) {
-  const { data } = await httpClient.post("/auth/refresh", { refreshToken });
-  return data;
-}
-
 export async function signUp({ email, nickname, password, passwordConfirmation }) {
   const { data } = await httpClient.post("/auth/signUp", {
     email,
@@ -23,6 +13,10 @@ export async function signUp({ email, nickname, password, passwordConfirmation }
     passwordConfirmation,
   });
   return data;
+}
+
+export async function logout() {
+  await httpClient.post("/auth/logout");
 }
 
 export async function getMe() {

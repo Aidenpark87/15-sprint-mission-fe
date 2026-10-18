@@ -1,19 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { startGoogleLogin } from "@/domains/auth/hooks/useGoogleLogin";
+import { moveToSocialLogin } from "@/domains/auth/hooks/useSocialLogin";
 import * as styles from "./SocialLogin.css";
-
-const SOCIAL_LINKS = [
-  {
-    href: "https://www.kakaocorp.com/page",
-    label: "카카오로 로그인",
-    bg: "/images/kakao-bg.svg",
-    glyph: "/images/kakao-bubble.svg",
-    glyphWidth: 24,
-    glyphHeight: 22,
-  },
-];
 
 export function SocialLogin() {
   return (
@@ -24,7 +13,7 @@ export function SocialLogin() {
           type="button"
           aria-label="구글로 로그인"
           className={styles.iconLink}
-          onClick={startGoogleLogin}
+          onClick={() => moveToSocialLogin("google")}
         >
           <Image src="/images/google-bg.svg" alt="" width={42} height={42} />
           <Image
@@ -35,18 +24,21 @@ export function SocialLogin() {
             className={styles.glyph}
           />
         </button>
-        {SOCIAL_LINKS.map((item) => (
-          <a key={item.href} href={item.href} aria-label={item.label} className={styles.iconLink}>
-            <Image src={item.bg} alt="" width={42} height={42} />
-            <Image
-              src={item.glyph}
-              alt=""
-              width={item.glyphWidth}
-              height={item.glyphHeight}
-              className={styles.glyph}
-            />
-          </a>
-        ))}
+        <button
+          type="button"
+          aria-label="카카오로 로그인"
+          className={styles.iconLink}
+          onClick={() => moveToSocialLogin("kakao")}
+        >
+          <Image src="/images/kakao-bg.svg" alt="" width={42} height={42} />
+          <Image
+            src="/images/kakao-bubble.svg"
+            alt=""
+            width={24}
+            height={22}
+            className={styles.glyph}
+          />
+        </button>
       </div>
     </div>
   );

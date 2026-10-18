@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { AuthShell } from "@/domains/auth/components/AuthShell";
@@ -9,35 +9,30 @@ import { TextField } from "@/domains/auth/components/TextField";
 import { SocialLogin } from "@/domains/auth/components/SocialLogin";
 import { AlertModal } from "@/components/Modal";
 import { useRedirectIfLoggedIn } from "@/domains/auth/hooks/useRedirectIfLoggedIn";
-import { readGoogleCode } from "@/domains/auth/hooks/useGoogleLogin";
-import { useGoogleSignIn, useSignIn } from "@/domains/auth/hooks/useAuthQueries";
+import { useSignIn } from "@/domains/auth/hooks/useAuthQueries";
+import { SOCIAL_ERROR_MESSAGES } from "@/domains/auth/constants/socialErrorMessages";
 import { getErrorMessage } from "@/apis/httpClient";
 import * as styles from "../AuthForm.css";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function SignInContainer() {
+export function SignInContainer({ initialErrorCode = "" }) {
   const router = useRouter();
   const redirecting = useRedirectIfLoggedIn();
-  const [modalMessage, setModalMessage] = useState("");
+  const [modalMessage, setModalMessage] = useState(
+    initialErrorCode
+      ? (SOCIAL_ERROR_MESSAGES[initialErrorCode] ??
+          SOCIAL_ERROR_MESSAGES.unknown)
+      : "",
+  );
   const { mutate, isPending } = useSignIn();
-  const googleSignIn = useGoogleSignIn();
-  const handledCode = useRef(false);
 
-  useEffect(() => {
-    const code = readGoogleCode();
-    if (!code || handledCode.current) return;
-    handledCode.current = true;
-
-    googleSignIn.mutate(
-      { code },
-      {
-        onSuccess: () => router.replace("/items"),
-        onError: (error) =>
-          setModalMessage(getErrorMessage(error, "구글 로그인에 실패했어요.")),
-      },
-    );
-  }, [googleSignIn, router]);
+  const closeModal = () => {
+    setModalMessage("");
+    if (initialErrorCode) {
+      router.replace("/signin");
+    }
+  };
 
   const {
     register,
@@ -103,7 +98,7 @@ export function SignInContainer() {
         </Link>
       </p>
 
-      {modalMessage && <AlertModal message={modalMessage} onClose={() => setModalMessage("")} />}
+      {modalMessage && <AlertModal message={modalMessage} onClose={closeModal} />}
     </AuthShell>
   );
 }

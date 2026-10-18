@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getToken } from "@/utils/token";
+import { useAuth } from "@/domains/auth/hooks/useAuth";
 
 export function useRedirectIfLoggedIn() {
-  const [wasLoggedIn] = useState(() => Boolean(getToken()));
+  const { isLoggedIn, isReady } = useAuth();
   const router = useRouter();
+  const redirecting = isReady && isLoggedIn;
 
   useEffect(() => {
-    if (wasLoggedIn) {
+    if (redirecting) {
       router.replace("/items");
     }
-  }, [wasLoggedIn, router]);
+  }, [redirecting, router]);
 
-  return wasLoggedIn;
+  return redirecting;
 }

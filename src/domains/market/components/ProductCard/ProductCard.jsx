@@ -6,17 +6,18 @@ import { HeartIcon } from "@/components/Icons";
 import { queryKeys } from "@/domains/market/hooks/useProductQueries";
 import { getProductImage } from "@/domains/market/utils/productImage";
 import { fetchProductDetail } from "@/apis";
-import { getToken } from "@/utils/token";
+import { useAuth } from "@/domains/auth/hooks/useAuth";
 import { formatPrice } from "@/utils";
 import * as styles from "./ProductCard.css";
 
 export function ProductCard({ product }) {
   const queryClient = useQueryClient();
+  const { isLoggedIn } = useAuth();
 
   const image = getProductImage(product);
 
   const prefetch = () => {
-    if (!getToken()) return;
+    if (!isLoggedIn) return;
     queryClient.prefetchQuery({
       queryKey: queryKeys.product(product.id),
       queryFn: () => fetchProductDetail(product.id),

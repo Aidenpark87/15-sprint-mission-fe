@@ -1,10 +1,8 @@
 "use client";
 
-import { createContext, useEffect, useSyncExternalStore } from "react";
+import { createContext, useSyncExternalStore } from "react";
+import { useMe, useLogout, queryKeys } from "@/domains/auth/hooks/useAuthQueries";
 import { useQueryClient } from "@tanstack/react-query";
-import { queryKeys, useMe } from "@/domains/auth/hooks/useAuthQueries";
-import { useAuthToken } from "@/domains/auth/hooks/useAuthToken";
-import { removeToken } from "@/utils/token";
 
 export const AuthContext = createContext(null);
 
@@ -16,27 +14,25 @@ function useHydrated() {
 
 export function AuthProvider({ children }) {
   const queryClient = useQueryClient();
-  const token = useAuthToken();
   const isReady = useHydrated();
-
-  const { data: user, isError } = useMe(Boolean(token));
-
-  useEffect(() => {
-    if (isError) removeToken();
-  }, [isError]);
+  const { data: user, isPending } = useMe(true);
+  const logoutMutation = useLogout();
 
   const logout = () => {
-    removeToken();
-    queryClient.removeQueries({ queryKey: queryKeys.me });
+    logoutMutation.mutate(undefined, {
+      onSettled: () => {
+        queryClient.setQueryData(queryKeys.me, null);
+      },
+    });
   };
 
   return (
     <AuthContext.Provider
       value={{
-        token,
         isReady,
-        isLoggedIn: Boolean(token),
-        user: token ? user : undefined,
+        isLoading: isPending,
+        isLoggedIn: Boolean(user),
+        user,
         logout,
       }}
     >
