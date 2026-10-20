@@ -65,8 +65,10 @@ pnpm format     # Prettier 포맷 정리
 | 변수 | 필수 | 설명 |
 |---|---|---|
 | `NEXT_PUBLIC_API_BASE_URL` | ✅ | 백엔드 API 주소 (예: `http://localhost:5001/api`) |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | ⬜ | 구글 로그인용 클라이언트 ID (공개 값) |
-| `NEXT_PUBLIC_GOOGLE_REDIRECT_URI` | ⬜ | 구글 로그인 후 돌아올 주소 (예: `http://localhost:3000/signin`) |
+
+> [!NOTE]
+> 소셜 로그인(구글·카카오)은 **백엔드 콜백** 방식이라 프론트에는 provider 키가 필요 없어요.
+> 클라이언트 ID·Secret은 백엔드 환경변수로만 관리합니다.
 
 > [!IMPORTANT]
 > `NEXT_PUBLIC_*` 값은 **빌드 시점에 코드로 굳어요.** 배포 환경(Vercel)에서는 값을 넣거나 바꾼 뒤 **다시 배포**해야 반영됩니다.
